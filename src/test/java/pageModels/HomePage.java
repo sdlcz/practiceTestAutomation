@@ -41,6 +41,14 @@ public class HomePage {
 	    return productNames;
 	}
 
+	public static WebElement clickMinimumFilter(WebDriver driver) {
+		return driver.findElement(By.xpath("//*[@id=\"filters\"]/div[1]/ngx-slider/span[5]"));
+	}
+	
+	public static WebElement clickMaximumFilter(WebDriver driver) {
+		return driver.findElement(By.xpath("//*[@id=\"filters\"]/div[1]/ngx-slider/span[6]"));
+	}
+	
 	public static WebElement signIn(WebDriver driver) {
 		return driver.findElement(By.xpath("//*[@id=\"navbarSupportedContent\"]/ul/li[4]/a"));
 	}
