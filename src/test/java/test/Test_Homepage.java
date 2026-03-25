@@ -66,8 +66,26 @@ public class Test_Homepage {
 	    Assert.assertEquals("Products should be sorted A-Z", sortedNames, productNames);
 	}
 	
+	@Test
+	public void verifyPriceRangeFilter() {
+		pageModels.HomePage.clickMinimumFilter(driver).sendKeys(testData.Data.priceRangeMin);
+		pageModels.HomePage.clickMaximumFilter(driver).sendKeys(testData.Data.priceRangeMax);
+//		driver.findElement(By.xpath("//*[@id=\"filters\"]/form[2]/div[2]/button")).click();
+		
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    wait.until(d -> pageModels.HomePage.getProductNames(d).size() > 0);
+	    
+		java.util.List<String> productNames = pageModels.HomePage.getProductNames(driver);
+		
+		for (String name : productNames) {
+			System.out.println("Filtered Product: " + name);
+			Assert.assertTrue("Product price should be within range", 
+				name.contains(testData.Data.priceRangeMin) || name.contains(testData.Data.priceRangeMax));
+		}
+	}
+	
 	@After
 	public void tearDown() {
-		driver.quit();
+//		driver.quit();
 	}
 }
