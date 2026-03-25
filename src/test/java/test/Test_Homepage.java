@@ -33,19 +33,19 @@ public class Test_Homepage {
 		
 	}
 	
-//	@Test
-//	public void verifyHomepageURL() {
-//		Assert.assertEquals(testData.Data.homePageURL, driver.getCurrentUrl());	
-//	}
-//	
-//	@Test
-//	public void verifyChatAssistant() {
-//		pageModels.HomePage.toggleChat(driver).click();
-//		Assert.assertEquals(testData.Data.chatAssistantHeading, pageModels.HomePage.chatAssistantHeading(driver).getText());
-//		pageModels.HomePage.clickFindAProduct(driver).click();
-//		Assert.assertEquals(testData.Data.chatFindProductResponse, pageModels.HomePage.clickFindAProductResponse(driver).getText());
-//		pageModels.HomePage.closeChat(driver).click();
-//	}
+	@Test
+	public void verifyHomepageURL() {
+		Assert.assertEquals(testData.Data.homePageURL, driver.getCurrentUrl());	
+	}
+	
+	@Test
+	public void verifyChatAssistant() {
+		pageModels.HomePage.toggleChat(driver).click();
+		Assert.assertEquals(testData.Data.chatAssistantHeading, pageModels.HomePage.chatAssistantHeading(driver).getText());
+		pageModels.HomePage.clickFindAProduct(driver).click();
+		Assert.assertEquals(testData.Data.chatFindProductResponse, pageModels.HomePage.clickFindAProductResponse(driver).getText());
+		pageModels.HomePage.closeChat(driver).click();
+	}
 	
 	@Test
 	public void verifySortProducts() {
@@ -68,6 +68,6 @@ public class Test_Homepage {
 	
 	@After
 	public void tearDown() {
-//		driver.quit();
+		driver.quit();
 	}
 }
