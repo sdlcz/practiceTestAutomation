@@ -20,6 +20,8 @@ public class Data {
 	
 	//Sort & Filtering
 	public static String sortByNameAZ = "Name (A - Z)";
+	public static String priceRangeMin = "10";
+	public static String priceRangeMax = "50";
 	
 	
 	//Registration/login
