@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  selenium:
+    image: selenium/standalone-chrome:4.33.0
+    container_name: selenium-standalone-chrome
+    ports:
+      - "4444:4444"
+    shm_size: 2gb
+
+  tests:
+    build: .
+    container_name: selenium-java-tests
+    depends_on:
+      - selenium
+    environment:
+      SELENIUM_REMOTE_URL: http://selenium:4444/wd/hub
+      BROWSER: chrome
+    command: mvn test
