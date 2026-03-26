@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -66,24 +67,42 @@ public class Test_Homepage {
 	    Assert.assertEquals("Products should be sorted A-Z", sortedNames, productNames);
 	}
 	
-	@Test
-	public void verifyPriceRangeFilter() {
-		pageModels.HomePage.clickMinimumFilter(driver).sendKeys(testData.Data.priceRangeMin);
-		pageModels.HomePage.clickMaximumFilter(driver).sendKeys(testData.Data.priceRangeMax);
-//		driver.findElement(By.xpath("//*[@id=\"filters\"]/form[2]/div[2]/button")).click();
-		
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	    wait.until(d -> pageModels.HomePage.getProductNames(d).size() > 0);
-	    
-		java.util.List<String> productNames = pageModels.HomePage.getProductNames(driver);
-		
-		for (String name : productNames) {
-			System.out.println("Filtered Product: " + name);
-			Assert.assertTrue("Product price should be within range", 
-				name.contains(testData.Data.priceRangeMin) || name.contains(testData.Data.priceRangeMax));
-		}
-	}
-	
+@Test
+public void verifyPriceRangeFilter() {
+    int min = Integer.parseInt(testData.Data.priceRangeMin);
+    int max = Integer.parseInt(testData.Data.priceRangeMax);
+
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(driver);
+
+    // Adjust slider handles \- use drag offsets that match your UI
+    WebElement minHandle = pageModels.HomePage.clickMinimumFilter(driver);
+    WebElement maxHandle = pageModels.HomePage.clickMaximumFilter(driver);
+
+    actions.clickAndHold(minHandle).moveByOffset(13, 0).release().perform();
+    actions.clickAndHold(maxHandle).moveByOffset(-68, 0).release().perform();
+
+    // Wait for products to be visible/updated
+    wait.until(d -> pageModels.HomePage.getProductNames(d).size() > 0);
+
+    // Validate each product price is within the selected range
+    java.util.List<org.openqa.selenium.WebElement> priceElements =
+            driver.findElements(By.cssSelector(".card .price")); // adjust selector to actual price element
+
+    Assert.assertTrue("No products found after filtering", priceElements.size() > 0);
+
+    for (org.openqa.selenium.WebElement priceEl : priceElements) {
+        String raw = priceEl.getText();          // e.g. "$29.99"
+        String numeric = raw.replaceAll("[^\\d.]", "");
+        double price = Double.parseDouble(numeric);
+
+        Assert.assertTrue(
+            "Price out of range: " + price,
+            price >= min && price <= max
+        );
+    }
+}
+
 	@After
 	public void tearDown() {
 //		driver.quit();
