@@ -13,6 +13,7 @@ public class Data {
 	public static String homePageURL = "https://practicesoftwaretesting.com/";
 	public static String registrationPageURL = "https://practicesoftwaretesting.com/auth/register";
 	public static String signInPageURL = "https://practicesoftwaretesting.com/auth/login";
+	public static String rentalsPageURL = "https://practicesoftwaretesting.com/rentals";
 	
 	//Chat Assistant
 	public static String chatAssistantHeading = "Chat Assistant";
