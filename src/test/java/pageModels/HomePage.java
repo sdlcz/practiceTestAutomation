@@ -23,6 +23,16 @@ public class HomePage {
 		return driver.findElement(By.xpath("/html/body/app-root/app-chat-widget/div/div/div[1]/button"));
 	}
 	
+	//NavBar menu
+	public static WebElement clickCategories(WebDriver driver) {
+		return driver.findElement(By.xpath("//*[@id=\"navbarSupportedContent\"]/ul/li[2]/button"));
+	}
+	
+	public static WebElement clickRental(WebDriver driver) {
+		return driver.findElement(By.xpath("//*[@id=\"navbarSupportedContent\"]/ul/li[2]/ul/li[6]/a"));
+	}
+	
+	
 //	Sort & Filtering
 	public static WebElement selectSort(WebDriver driver) {
 		return driver.findElement(By.xpath("//*[@id=\"filters\"]/form[1]/div/select"));
