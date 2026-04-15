@@ -18,6 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import driverUtilities.driverUtilities;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import pageModels.HomePage;
 import pageModels.RentalsPage;
 import testData.Data;
 import driverUtilities.driverUtilities;
@@ -36,7 +37,9 @@ public class Test_Rentals {
 	
 	@Test
 	public void verifyRentalsPageUrl() {
-		
+		pageModels.HomePage.clickCategories(driver).click();
+		pageModels.HomePage.clickRental(driver).click();
+		Assert.assertEquals(testData.Data.rentalsPageURL, driver.getCurrentUrl());
 	}
 	
 	@After
