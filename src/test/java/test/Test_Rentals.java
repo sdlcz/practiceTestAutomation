@@ -37,8 +37,10 @@ public class Test_Rentals {
 	
 	@Test
 	public void verifyRentalsPageUrl() {
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		pageModels.HomePage.clickCategories(driver).click();
 		pageModels.HomePage.clickRental(driver).click();
+//		wait.until(d -> d.getCurrentUrl().equals(testData.Data.rentalsPageURL));
 		Assert.assertEquals(testData.Data.rentalsPageURL, driver.getCurrentUrl());
 	}
 	
